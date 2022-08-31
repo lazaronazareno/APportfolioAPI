@@ -60,10 +60,12 @@ public class ExperienceController {
     public ResponseEntity<Experience> editExperience(@PathVariable int id, @RequestBody Experience exp){
         Experience ex = interExp.findExp(id);
         
-        ex.setName(exp.getName() == null ? ex.getName() : exp.getName());
+        ex.setPosition(exp.getPosition() == null ? ex.getPosition() : exp.getPosition());
+        ex.setCompany(exp.getCompany() == null ? ex.getCompany() : exp.getCompany());
+        ex.setMode(exp.getMode() == null ? ex.getMode() : exp.getMode());
         ex.setIsActual(exp.getIsActual() == null ? ex.getIsActual() : exp.getIsActual());
-        ex.setYear_init(exp.getYear_init() == 0 ? ex.getYear_init() : exp.getYear_init());
-        ex.setYear_end(exp.getYear_end() == 0 ? ex.getYear_end() : exp.getYear_end());
+        ex.setDate_init(exp.getDate_init() == null ? ex.getDate_init() : exp.getDate_init());
+        ex.setDate_end(exp.getDate_end() == null ? ex.getDate_end() : exp.getDate_end());
         ex.setDescription(exp.getDescription() == null ? ex.getDescription() : exp.getDescription());
         ex.setPhoto_url(exp.getPhoto_url() == null ? ex.getPhoto_url() : exp.getPhoto_url());
         ex.setPerson(exp.getPerson() == null ? ex.getPerson() : exp.getPerson());

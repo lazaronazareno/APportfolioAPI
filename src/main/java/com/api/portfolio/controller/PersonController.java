@@ -61,6 +61,8 @@ public class PersonController {
         person.setOcupation(pers.getOcupation() == null ? person.getOcupation() : pers.getOcupation());
         person.setPhoto_url(pers.getPhoto_url() == null ? person.getPhoto_url() : pers.getPhoto_url());
         person.setBackground_url(pers.getBackground_url() == null ? person.getBackground_url() : pers.getBackground_url());
+        person.setRepo_url(pers.getRepo_url() == null ? person.getRepo_url() : pers.getRepo_url());
+        person.setLinkedin_url(pers.getLinkedin_url() == null ? person.getLinkedin_url() : pers.getLinkedin_url());
         
         interPerson.savePerson(person);
         

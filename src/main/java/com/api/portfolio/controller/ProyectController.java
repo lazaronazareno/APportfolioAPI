@@ -64,6 +64,7 @@ public class ProyectController {
         proy.setName(proyect.getName() == null ? proy.getName() : proyect.getName());
         proy.setYear_made(proyect.getYear_made() == 0 ? proy.getYear_made() : proyect.getYear_made());
         proy.setDescription(proyect.getDescription() == null ? proy.getDescription() : proyect.getDescription());
+        proy.setStack(proyect.getStack() == null ? proy.getStack() : proyect.getStack());
         proy.setPhoto_url(proyect.getPhoto_url() == null ? proy.getPhoto_url() : proyect.getPhoto_url());
         proy.setRepo_url(proyect.getRepo_url() == null ? proy.getRepo_url() : proyect.getRepo_url());
         proy.setDeploy_url(proyect.getDeploy_url() == null ? proy.getDeploy_url() : proyect.getDeploy_url());

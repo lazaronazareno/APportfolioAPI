@@ -4,8 +4,10 @@
  */
 package com.api.portfolio.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -26,10 +29,19 @@ public class Experience implements Serializable {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     
-    private String name;
+    private String position;
+    private String company;
+    private String mode;
     private Boolean isActual;
-    private int year_init;
-    private int year_end;
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date_init;
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date_end;
+    
     private String description;
     private String photo_url;
     
@@ -42,12 +54,14 @@ public class Experience implements Serializable {
     public Experience() {
     }
 
-    public Experience(int id, String name, Boolean isActual, int year_init, int year_end, String description, String photo_url, Person person) {
+    public Experience(int id, String position, String company, String mode, Boolean isActual, Date date_init, Date date_end, String description, String photo_url, Person person) {
         this.id = id;
-        this.name = name;
+        this.position = position;
+        this.company = company;
+        this.mode = mode;
         this.isActual = isActual;
-        this.year_init = year_init;
-        this.year_end = year_end;
+        this.date_init = date_init;
+        this.date_end = date_end;
         this.description = description;
         this.photo_url = photo_url;
         this.person = person;
@@ -61,13 +75,31 @@ public class Experience implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPosition() {
+        return position;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPosition(String position) {
+        this.position = position;
     }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+    
+    
 
     public Boolean getIsActual() {
         return isActual;
@@ -77,20 +109,20 @@ public class Experience implements Serializable {
         this.isActual = isActual;
     }
 
-    public int getYear_init() {
-        return year_init;
+    public Date getDate_init() {
+        return date_init;
     }
 
-    public void setYear_init(int year_init) {
-        this.year_init = year_init;
+    public void setDate_init(Date year_init) {
+        this.date_init = year_init;
     }
 
-    public int getYear_end() {
-        return year_end;
+    public Date getDate_end() {
+        return date_end;
     }
 
-    public void setYear_end(int year_end) {
-        this.year_end = year_end;
+    public void setDate_end(Date year_end) {
+        this.date_end = year_end;
     }
 
     public String getDescription() {
@@ -116,5 +148,7 @@ public class Experience implements Serializable {
     public void setPerson(Person person) {
         this.person = person;
     }
+    
+    
     
 }

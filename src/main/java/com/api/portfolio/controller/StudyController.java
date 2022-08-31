@@ -63,8 +63,8 @@ public class StudyController {
         stu.setSchool(study.getSchool() == null ? stu.getSchool() : study.getSchool());
         stu.setName(study.getName() == null ? stu.getName() : study.getName());
         stu.setIsActual(study.getIsActual() == null ? stu.getIsActual() : study.getIsActual());
-        stu.setYear_init(study.getYear_init() == 0 ? stu.getYear_init() : study.getYear_init());
-        stu.setYear_end(study.getYear_end() == 0 ? stu.getYear_end() : study.getYear_end());
+        stu.setDate_init(study.getDate_init() == null ? stu.getDate_init() : study.getDate_init());
+        stu.setDate_end(study.getDate_end() == null ? stu.getDate_end() : study.getDate_end());
         stu.setPhoto_url(study.getPhoto_url() == null ? stu.getPhoto_url() : study.getPhoto_url());
         stu.setPerson(study.getPerson() == null ? stu.getPerson() : study.getPerson());
         

@@ -61,7 +61,6 @@ public class StackController {
         Stack sta = interStack.findStack(id);
         
         sta.setName(stack.getName() == null ? sta.getName() : stack.getName());
-        sta.setDescription(stack.getDescription() == null ? sta.getDescription() : stack.getDescription());
         sta.setPhoto_url(stack.getPhoto_url() == null ? sta.getPhoto_url() : stack.getPhoto_url());
         sta.setPerson(stack.getPerson() == null ? sta.getPerson() : stack.getPerson());
         

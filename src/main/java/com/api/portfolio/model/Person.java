@@ -45,6 +45,8 @@ public class Person implements Serializable {
     private String ocupation;
     private String photo_url;
     private String background_url;
+    private String repo_url;
+    private String linkedin_url;
     
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Experience> experience;
@@ -172,9 +174,21 @@ public class Person implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    
-    
-    
+
+    public String getRepo_url() {
+        return repo_url;
+    }
+
+    public void setRepo_url(String repo_url) {
+        this.repo_url = repo_url;
+    }
+
+    public String getLinkedin_url() {
+        return linkedin_url;
+    }
+
+    public void setLinkedin_url(String linkedin_url) {
+        this.linkedin_url = linkedin_url;
+    }
     
 }

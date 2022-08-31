@@ -4,8 +4,10 @@
  */
 package com.api.portfolio.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -30,9 +33,16 @@ public class Study implements Serializable {
     private String school;
     private String name;
     private Boolean isActual;
-    private int year_init;
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date_init;
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Temporal(javax.persistence.TemporalType.DATE)
     @Column(nullable = true)
-    private int year_end;
+    private Date date_end;
+    
     @Column(nullable = true)
     private String photo_url;
     
@@ -45,13 +55,13 @@ public class Study implements Serializable {
     public Study() {
     }
 
-    public Study(int id, String school, String name, Boolean isActual, int year_init, int year_end, String photo_url) {
+    public Study(int id, String school, String name, Boolean isActual, Date date_init, Date date_end, String photo_url) {
         this.id = id;
         this.school = school;
         this.name = name;
         this.isActual = isActual;
-        this.year_init = year_init;
-        this.year_end = year_end;
+        this.date_init = date_init;
+        this.date_end = date_end;
         this.photo_url = photo_url;
     }
 
@@ -87,20 +97,20 @@ public class Study implements Serializable {
         this.isActual = isActual;
     }
 
-    public int getYear_init() {
-        return year_init;
+    public Date getDate_init() {
+        return date_init;
     }
 
-    public void setYear_init(int year_init) {
-        this.year_init = year_init;
+    public void setDate_init(Date date_init) {
+        this.date_init = date_init;
     }
 
-    public int getYear_end() {
-        return year_end;
+    public Date getDate_end() {
+        return date_end;
     }
 
-    public void setYear_end(int year_end) {
-        this.year_end = year_end;
+    public void setDate_end(Date date_end) {
+        this.date_end = date_end;
     }
 
     public String getPhoto_url() {

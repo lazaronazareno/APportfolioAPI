@@ -5,7 +5,6 @@
 package com.api.portfolio.service;
 
 import com.api.portfolio.model.JwtRequest;
-import com.api.portfolio.model.Person;
 import com.api.portfolio.model.Person_User;
 import com.api.portfolio.repository.Person_UserRepository;
 import java.util.ArrayList;

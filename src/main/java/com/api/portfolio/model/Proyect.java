@@ -34,6 +34,8 @@ public class Proyect implements Serializable {
     @Column(nullable = true)
     private String description;
     @Column(nullable = true)
+    private String stack;
+    @Column(nullable = true)
     private String photo_url;
     @Column(nullable = true)
     private String repo_url;
@@ -49,11 +51,12 @@ public class Proyect implements Serializable {
     public Proyect() {
     }
 
-    public Proyect(int id, String name, int year_made, String description, String photo_url, String repo_url, String deploy_url) {
+    public Proyect(int id, String name, int year_made, String description, String stack, String photo_url, String repo_url, String deploy_url) {
         this.id = id;
         this.name = name;
         this.year_made = year_made;
         this.description = description;
+        this.stack = stack;
         this.photo_url = photo_url;
         this.repo_url = repo_url;
         this.deploy_url = deploy_url;
@@ -89,6 +92,14 @@ public class Proyect implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStack() {
+        return stack;
+    }
+
+    public void setStack(String stack) {
+        this.stack = stack;
     }
 
     public String getPhoto_url() {
