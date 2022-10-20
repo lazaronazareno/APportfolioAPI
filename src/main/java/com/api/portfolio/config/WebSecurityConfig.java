@@ -61,12 +61,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
             // We don't need CSRF for this example
-            httpSecurity.csrf().disable()
+            httpSecurity.cors(withDefaults()).csrf().disable()
                             // dont authenticate this particular request
-                            .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().                    
+                            .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+                            antMatchers(HttpMethod.OPTIONS).permitAll().
+                    
                             // all other requests need to be authenticated
                     
                             anyRequest().authenticated().and().
+                            httpBasic().and().
                             // make sure we use stateless session; session won't be used to
                             // store user's state.
                             exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -75,4 +78,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // Add a filter to validate the tokens with every request
             httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+    
+    @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            final CorsConfiguration config = new CorsConfiguration();
+
+            config.addAllowedOrigin("https://argprograma-front.web.app");
+            config.setAllowedOrigins(Arrays.asList("https://argprograma-front.web.app/"));
+            config.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
+            config.setAllowCredentials(true);
+            config.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers","Authorization"));
+            config.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+            config.setMaxAge(3600L);
+            final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            source.registerCorsConfiguration("/**", config);
+
+            return source;
+        }
 }
