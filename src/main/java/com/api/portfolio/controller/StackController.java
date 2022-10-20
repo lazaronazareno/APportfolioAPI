@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
-@CrossOrigin(origins ="https://argentina-programa-back-end.herokuapp.com")
+@CrossOrigin(origins ="https://argprograma-front.web.app")
 @RequestMapping("/stack")
 public class StackController {
     

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins ="https://argentina-programa-back-end.herokuapp.com")
+@CrossOrigin(origins ="https://argprograma-front.web.app")
 public class Person_userController {
     
     @Autowired IPerson_UserService interUser;
