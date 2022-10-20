@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -59,13 +60,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
             // We don't need CSRF for this example
-            httpSecurity.cors().and().csrf().disable()
+            httpSecurity.cors(withDefaults()).csrf().disable()
                             // dont authenticate this particular request
                             .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
                     
                             // all other requests need to be authenticated
                     
                             anyRequest().authenticated().and().
+                            httpBasic().and().
                             // make sure we use stateless session; session won't be used to
                             // store user's state.
                             exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -82,8 +84,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             config.setAllowedOrigins(Arrays.asList("https://argentina-programa-back-end.herokuapp.com"));
             config.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
             config.setAllowCredentials(true);
-            config.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type", "Access-Control-Allow-Origin"));
-            config.setExposedHeaders(Arrays.asList("X-Get-Header"));
+            config.addAllowedOrigin("https://argentina-programa-back-end.herokuapp.com");
+            config.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers","Authorization"));
+            config.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
             config.setMaxAge(3600L);
             final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", config);
