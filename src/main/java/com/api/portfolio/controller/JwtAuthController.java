@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins ="https://argentina-programa-back-end.herokuapp.com")
 public class JwtAuthController {
     @Autowired
     private AuthenticationManager authenticationManager;

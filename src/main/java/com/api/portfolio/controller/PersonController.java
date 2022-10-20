@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins ="https://argentina-programa-back-end.herokuapp.com")
 @RequestMapping("/person")
 public class PersonController {
     
