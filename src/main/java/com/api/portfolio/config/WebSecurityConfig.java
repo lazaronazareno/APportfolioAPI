@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -63,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             httpSecurity.cors(withDefaults()).csrf().disable()
                             // dont authenticate this particular request
                             .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+                            antMatchers(HttpMethod.OPTIONS).permitAll().
                     
                             // all other requests need to be authenticated
                     
@@ -81,10 +83,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         public CorsConfigurationSource corsConfigurationSource() {
             final CorsConfiguration config = new CorsConfiguration();
 
+            config.addAllowedOrigin("https://argentina-programa-back-end.herokuapp.com");
             config.setAllowedOrigins(Arrays.asList("https://argentina-programa-back-end.herokuapp.com"));
             config.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
             config.setAllowCredentials(true);
-            config.addAllowedOrigin("https://argentina-programa-back-end.herokuapp.com");
             config.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers","Authorization"));
             config.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
             config.setMaxAge(3600L);
