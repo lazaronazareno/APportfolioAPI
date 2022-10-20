@@ -62,11 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
             // We don't need CSRF for this example
-            httpSecurity.csrf().disable()
-                            .cors().configurationSource(corsConfigurationSource())
-                            .and()
                             // dont authenticate this particular request
-                            .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+                            httpSecurity.antMatcher("/**").authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
                     
                             // all other requests need to be authenticated
                     
@@ -76,24 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             
-            httpSecurity.cors();
+            httpSecurity.cors().and().csrf().disable()
+;
 
             // Add a filter to validate the tokens with every request
             httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-    
-     @Bean
-        CorsConfigurationSource corsConfigurationSource() {
-                CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(Arrays.asList("https://argentina-programa-back-end.herokuapp.com"));
-                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT"));
-                configuration.setAllowCredentials(true);
-//                //the below three lines will add the relevant CORS response headers
-//                configuration.addAllowedOrigin("*");
-//                configuration.addAllowedHeader("*");
-//                configuration.addAllowedMethod("*");
-                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                source.registerCorsConfiguration("/**", configuration);
-                return source;
     }
 }
