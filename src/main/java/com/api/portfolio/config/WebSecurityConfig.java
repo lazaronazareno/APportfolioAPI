@@ -19,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -64,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // We don't need CSRF for this example
             httpSecurity.csrf().disable()
                             // dont authenticate this particular request
-                            .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+                            .authorizeRequests().antMatchers("/authenticate", "/register", "/").permitAll().
                             // all other requests need to be authenticated
                             anyRequest().authenticated().and().
                             // make sure we use stateless session; session won't be used to
@@ -76,32 +75,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             // Add a filter to validate the tokens with every request
             httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-    
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-               			    // This wildcard pattern matches any host from domain.com and url patterns like "https:microservice.division.domain.com/version1/some_endpoint"
-                registry.addMapping("/**").allowedMethods("*").allowedOriginPatterns("https://argentina-programa-back-end.herokuapp.com");
-            }
-        };
-    }
-    @Bean
-    public CorsFilter corsFilter() {
-            CorsConfiguration corsConfiguration = new CorsConfiguration();
-            corsConfiguration.setAllowCredentials(true);
-            corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
-
-            corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
-                            "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
-                            "Access-Control-Request-Method", "Access-Control-Request-Headers"));
-            corsConfiguration.setExposedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization",
-                            "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
-            corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-            urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-            return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 }
