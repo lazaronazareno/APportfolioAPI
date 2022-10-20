@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/proyect")
 public class ProyectController {
     
@@ -37,24 +39,24 @@ public class ProyectController {
     public ResponseEntity<List<Proyect>> getProyects(){
         List<Proyect> proy = interProyect.getProyects();
         
-        return new ResponseEntity<>(proy, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(proy);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Proyect> getProyectById(@PathVariable int id){
         Proyect proy = interProyect.findProyect(id);
         
-        return new ResponseEntity<>(proy, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(proy);
     }
     
     @PostMapping()
-    public ResponseEntity<String> saveProyect(@RequestBody Proyect proyect){
+    public ResponseEntity<Proyect> saveProyect(@RequestBody Proyect proyect){
         Person person = interPerson.getPerson();
 
         proyect.setPerson(person);
         interProyect.SaveProyect(proyect);
         
-        return new ResponseEntity<>("Proyect Successfully created", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).body(proyect);
     }
     
     @PutMapping("/{id}")
@@ -72,14 +74,14 @@ public class ProyectController {
 
         interProyect.SaveProyect(proy);
         
-        return new ResponseEntity<>(proy, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(proy);
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteproyect(@PathVariable int id){
         interProyect.deleteProyect(id);
         
-        return new ResponseEntity<>("Proyect Successfully deleted", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("proyect {id} successfully deleted");
     }
     
 }

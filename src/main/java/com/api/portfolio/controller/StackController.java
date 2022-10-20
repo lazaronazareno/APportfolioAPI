@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/stack")
 public class StackController {
     
@@ -36,24 +38,24 @@ public class StackController {
     public ResponseEntity<List<Stack>> getStacks(){
         List<Stack> stack = interStack.getStack();
         
-        return new ResponseEntity<>(stack, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(stack);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Stack> getStackById(@PathVariable int id){
         Stack stack = interStack.findStack(id);
         
-        return new ResponseEntity<>(stack, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(stack);
     }
     
     @PostMapping()
-    public ResponseEntity<String> saveStack(@RequestBody Stack stack){
+    public ResponseEntity<Stack> saveStack(@RequestBody Stack stack){
         Person person = interPerson.getPerson();
         
         stack.setPerson(person);
         interStack.saveStack(stack);
         
-        return new ResponseEntity<>("Stack Successfully created", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).body(stack);
     }
     
     @PutMapping("/{id}")
@@ -66,14 +68,14 @@ public class StackController {
         
         interStack.saveStack(sta);
         
-        return new ResponseEntity<>(sta, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(sta);
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStack(@PathVariable int id){
         interStack.deleteStack(id);
         
-        return new ResponseEntity<>("stack Successfully deleted", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("stack {id} successfully deleted");
     }
     
 }

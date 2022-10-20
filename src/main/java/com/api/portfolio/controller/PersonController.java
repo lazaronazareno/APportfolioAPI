@@ -9,6 +9,7 @@ import com.api.portfolio.service.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/person")
 public class PersonController {
     
@@ -29,11 +31,11 @@ public class PersonController {
     @GetMapping()
     public ResponseEntity<Person> getPerson() {
         Person pers = interPerson.getPerson();
-        return new ResponseEntity<>(pers, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(pers);
     }
     
     @PostMapping()
-    public ResponseEntity<String> savePerson (@RequestBody Person pers){
+    public ResponseEntity<Person> savePerson (@RequestBody Person pers){
         Person firstPerson = interPerson.getPerson();
         
         if(firstPerson == null) {
@@ -43,7 +45,7 @@ public class PersonController {
             interPerson.savePerson(pers);
         }
         
-        return new ResponseEntity<>("Person Successfully created.", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pers);
     }
     
     @PutMapping()
@@ -66,6 +68,6 @@ public class PersonController {
         
         interPerson.savePerson(person);
         
-        return new ResponseEntity<>(person, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(person);
     }
 }

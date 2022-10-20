@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lazar
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/experience")
 public class ExperienceController {
     
@@ -36,24 +38,24 @@ public class ExperienceController {
     public ResponseEntity<List<Experience>> getExperiences(){
         List<Experience> exp = interExp.getExperiences();
         
-        return new ResponseEntity<>(exp, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(exp);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Experience> getExperienceById(@PathVariable int id){
         Experience exp = interExp.findExp(id);
         
-        return new ResponseEntity<>(exp, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(exp);
     }
     
     @PostMapping()
-    public ResponseEntity<String> saveExperience(@RequestBody Experience exp) {
+    public ResponseEntity<Experience> saveExperience(@RequestBody Experience exp) {
         Person person = interPerson.getPerson();
         
         exp.setPerson(person);
         interExp.SaveExp(exp);
         
-        return new ResponseEntity<>("Experience Successfully created", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(exp);
     }
     
     @PutMapping ("/{id}")
@@ -72,14 +74,14 @@ public class ExperienceController {
         
         interExp.SaveExp(ex);
         
-        return new ResponseEntity<>(ex, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(exp);
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteExperience (@PathVariable int id){
         interExp.deletePerson(id);
         
-        return new ResponseEntity<>("Experience successfully deleted", HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body("experience {id} successfully deleted");
     }
     
 }
