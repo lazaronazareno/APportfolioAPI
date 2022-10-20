@@ -82,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             config.setAllowedOrigins(Arrays.asList("https://argentina-programa-back-end.herokuapp.com"));
             config.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
             config.setAllowCredentials(true);
-            config.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type"));
+            config.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type", "Access-Control-Allow-Origin"));
             config.setExposedHeaders(Arrays.asList("X-Get-Header"));
             config.setMaxAge(3600L);
             final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
