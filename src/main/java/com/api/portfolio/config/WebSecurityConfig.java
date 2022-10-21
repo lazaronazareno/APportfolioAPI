@@ -8,7 +8,6 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -82,10 +81,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             final CorsConfiguration config = new CorsConfiguration();
 
             config.addAllowedOrigin("https://argprograma-front.web.app");
+            config.addAllowedHeader("Content-Type");
             config.setAllowedOrigins(Arrays.asList("https://argprograma-front.web.app/"));
             config.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
             config.setAllowCredentials(true);
-            config.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers","Authorization"));
+            config.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Allow-Method", "Access-Control-Request-Headers","Authorization"));
             config.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
             config.setMaxAge(3600L);
             final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
