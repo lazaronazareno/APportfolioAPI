@@ -80,6 +80,6 @@ public class StudyController {
     public ResponseEntity<String> deleteStudy(@PathVariable int id){
         interStudy.deleteStudy(id);
         
-        return ResponseEntity.status(HttpStatus.OK).body("study {id} successfully deleted");
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("study %d successfully deleted", id));
     }
 }

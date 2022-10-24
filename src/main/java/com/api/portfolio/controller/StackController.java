@@ -75,7 +75,7 @@ public class StackController {
     public ResponseEntity<String> deleteStack(@PathVariable int id){
         interStack.deleteStack(id);
         
-        return ResponseEntity.status(HttpStatus.OK).body("stack {id} successfully deleted");
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("stack %d successfully deleted", id));
     }
     
 }

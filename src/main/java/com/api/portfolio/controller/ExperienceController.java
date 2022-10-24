@@ -81,7 +81,7 @@ public class ExperienceController {
     public ResponseEntity<String> deleteExperience (@PathVariable int id){
         interExp.deletePerson(id);
         
-        return ResponseEntity.status(HttpStatus.OK).body("experience {id} successfully deleted");
+        return ResponseEntity.status(HttpStatus.OK).body(String.format("experience %d successfully deleted", id));
     }
     
 }
