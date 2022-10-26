@@ -81,7 +81,7 @@ public class ProyectController {
     public ResponseEntity<String> deleteproyect(@PathVariable int id){
         interProyect.deleteProyect(id);
         
-        return ResponseEntity.status(HttpStatus.OK).body(String.format("proyect %d successfully deleted", id));
+        return ResponseEntity.status(HttpStatus.OK).body(String.format(" \" proyect %d successfully deleted \"", id));
     }
     
 }
