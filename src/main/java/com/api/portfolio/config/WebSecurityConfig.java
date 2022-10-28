@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -62,10 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // We don't need CSRF for this example
             httpSecurity.cors(withDefaults()).csrf().disable()
                             // dont authenticate this particular request
-                            .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().                    
+                            .authorizeRequests()
+                            .antMatchers("/authenticate").permitAll()
+                            .antMatchers(HttpMethod.GET).permitAll()
                             // all other requests need to be authenticated
                     
-                            anyRequest().authenticated().and().
+                            .anyRequest().authenticated().and().
                             httpBasic().and().
                             // make sure we use stateless session; session won't be used to
                             // store user's state.
