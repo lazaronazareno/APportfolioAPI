@@ -85,7 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             config.addAllowedOrigin("https://argprograma-front.web.app");
             config.addAllowedHeader("Content-Type");
-            config.setAllowedOrigins(Arrays.asList("https://argprograma-front.web.app/"));
+            config.setAllowedOrigins(Arrays.asList("https://argprograma-front.web.app"));
             config.setAllowedMethods(Arrays.asList("GET","POST","PATCH", "PUT", "DELETE", "OPTIONS", "HEAD"));
             config.setAllowCredentials(true);
             config.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Allow-Method", "Access-Control-Request-Headers","Authorization"));
